@@ -5,7 +5,11 @@ cmake_minimum_required(VERSION 3.5)
 find_package(ITK REQUIRED)
 include(${ITK_USE_FILE})
 
-find_package(VTK REQUIRED)
+find_package(VTK REQUIRED COMPONENTS
+  vtkCommonCore
+  vtkFiltersCore
+  vtkIOLegacy
+  vtkIOXML)
 include(${VTK_USE_FILE})
 
 find_package(SlicerExecutionModel REQUIRED)
@@ -46,12 +50,6 @@ install( TARGETS polydatatransform
   RUNTIME DESTINATION bin 
   PUBLIC_HEADER DESTINATION "${INSTALL_INCLUDE_DIR}"
   )
-
-
 # Add all targets to the build-tree export set
 
 set_property(GLOBAL APPEND PROPERTY niral_utilities_LIBRARIES polydatatransform)
-
-export(TARGETS polydatatransform
-  FILE "${PROJECT_BINARY_DIR}/niral_utilitiesTargets.cmake"
-  )
